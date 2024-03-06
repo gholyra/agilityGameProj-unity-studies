@@ -22,11 +22,13 @@ public class UIManager : MonoBehaviour
     public void ShowWinnerText() 
     {
         winnerText.gameObject.SetActive(true);
+        loserText.gameObject.SetActive(false);
     } 
     
     public void ShowLoserText() 
     {
         loserText.gameObject.SetActive(true);
+        winnerText.gameObject.SetActive(false);
     }
 
 }

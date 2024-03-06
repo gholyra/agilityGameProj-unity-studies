@@ -3,14 +3,20 @@ using UnityEngine.InputSystem;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    private GameControls playerInput;
-
+    public static PlayerBehaviour Instance;
+    
     [SerializeField] private float velocity;
 
     private Vector3 moveDirection;
+    private GameControls playerInput;
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        
         playerInput = new GameControls();
         playerInput.Enable();
         SetUpInputs();
@@ -29,11 +35,19 @@ public class PlayerBehaviour : MonoBehaviour
         moveDirection.y = 0f;
         moveDirection.z = inputDirection.y;
     }
+    
+    private void RestartGame(InputAction.CallbackContext context)
+    {
+        SceneManager.Instance.RestartScene();
+    }
+    
     private void SetUpInputs()
     {
         playerInput.Player.Move.started += MovePlayer;
         playerInput.Player.Move.performed += MovePlayer;
         playerInput.Player.Move.canceled += MovePlayer;
+        
+        playerInput.Player.RestartGame.performed += RestartGame;
     }
 
     private void OnDisable()

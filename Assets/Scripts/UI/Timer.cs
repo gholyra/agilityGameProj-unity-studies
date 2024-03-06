@@ -15,6 +15,7 @@ public class Timer : MonoBehaviour
     private void Update()
     {
         if (!isTimerEnabled) return;
+        
         elapsedTime += Time.deltaTime;
         int minutes = Mathf.FloorToInt(elapsedTime / 60);
         int seconds = Mathf.FloorToInt(elapsedTime % 60);
