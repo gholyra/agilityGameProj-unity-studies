@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,7 +6,7 @@ public class PlayerBehaviour : MonoBehaviour
 {
     public static PlayerBehaviour Instance;
     
-    [SerializeField] private float velocity;
+    [SerializeField] private float velocity = 6f;
 
     private Vector3 moveDirection;
     private GameControls playerInput;
@@ -19,7 +20,6 @@ public class PlayerBehaviour : MonoBehaviour
         
         playerInput = new GameControls();
         playerInput.Enable();
-        SetUpInputs();
     }
 
     private void Update()
@@ -38,10 +38,15 @@ public class PlayerBehaviour : MonoBehaviour
     
     private void RestartGame(InputAction.CallbackContext context)
     {
-        SceneManager.Instance.RestartScene();
+        SceneManager.Instance.RestartGameScene();
     }
     
-    private void SetUpInputs()
+    public void DisableInput()
+    {
+        playerInput.Player.Move.Disable();
+    }
+
+    private void OnEnable()
     {
         playerInput.Player.Move.started += MovePlayer;
         playerInput.Player.Move.performed += MovePlayer;
@@ -55,7 +60,7 @@ public class PlayerBehaviour : MonoBehaviour
         playerInput.Player.Move.started -= MovePlayer;
         playerInput.Player.Move.performed -= MovePlayer;
         playerInput.Player.Move.canceled -= MovePlayer;
-        playerInput.Disable();
+        DisableInput();
     }
 
 }

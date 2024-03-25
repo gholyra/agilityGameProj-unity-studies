@@ -10,10 +10,9 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
+        if (Instance != null) Destroy(this.gameObject);
+        
+        Instance = this;
 
         winnerText.gameObject.SetActive(false);
         loserText.gameObject.SetActive(false);

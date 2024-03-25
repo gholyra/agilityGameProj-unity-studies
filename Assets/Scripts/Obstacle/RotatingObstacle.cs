@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class RotatingObstacle : Obstacle
 {
-    [SerializeField] private float rotationVelocity;
-    [SerializeField] private bool isRotatingLeft;
+    [SerializeField] private float rotationVelocity = 30f;
+    [SerializeField] private bool isRotatingLeft = true;
 
     private void Update()
     {

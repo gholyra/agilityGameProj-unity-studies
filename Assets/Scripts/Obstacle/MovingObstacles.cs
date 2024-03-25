@@ -12,18 +12,31 @@ public class MovingObstacles : Obstacle
 
     private void Awake()
     {
-        position1 = this.transform;
-        canMove = false;
+        canMove = true;
         canSwitch = false;
     }
 
-    private void FixedUpdate()
+    private void Update()
+    {
+        if (!CheckCanMove()) return;
+
+        CheckAndHandleMovement();
+
+        CheckAndHandleReachedPosition();
+    }
+
+    private bool CheckCanMove()
     {
         if (!canMove)
         {
             TimeCount();
+            return false;
         }
+        return true;
+    }
 
+    private void CheckAndHandleMovement()
+    {
         if (!canSwitch)
         {
             transform.position = Vector3.MoveTowards(transform.position, position2.position, velocity * Time.deltaTime);
@@ -32,17 +45,22 @@ public class MovingObstacles : Obstacle
         {
             transform.position = Vector3.MoveTowards(transform.position, position1.position, velocity * Time.deltaTime);
         }
+    }
 
+    private void CheckAndHandleReachedPosition()
+    {
         if (transform.position == position1.position)
         {
+            canMove = false;
             canSwitch = false;
         }
         else if (transform.position == position2.position)
         {
+            canMove = false;
             canSwitch = true;
         }
     }
-
+    
     private void TimeCount()
     {
         elapsedTime += Time.deltaTime;

@@ -4,9 +4,11 @@ using UnityEngine;
 public class FinishArea : MonoBehaviour
 {
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        
+        Timer.isTimerEnabled = false;
+        UIManager.Instance.ShowWinnerText();
+        PlayerBehaviour.Instance.DisableInput();
     }
 
 }

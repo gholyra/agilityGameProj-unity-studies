@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -9,6 +8,9 @@ public class Obstacle : MonoBehaviour
         if(collision.gameObject.name.Contains("Player"))
         {
             Debug.Log("You touched me, loser!");
+            Timer.isTimerEnabled = false;
+            UIManager.Instance.ShowLoserText();
+            PlayerBehaviour.Instance.DisableInput();
         }
     }
 }

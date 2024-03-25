@@ -6,13 +6,12 @@ public class SceneManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
+        if (Instance != null) Destroy(this.gameObject);
+
+        Instance = this;
     }
 
-    public void RestartScene()
+    public void RestartGameScene()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
     }
